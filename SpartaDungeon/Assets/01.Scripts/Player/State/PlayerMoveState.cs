@@ -13,6 +13,7 @@ public class PlayerMoveState : PlayerBaseMoveState
     public override void EnterState()
     {
         base.EnterState();
+        Debug.Log("무브");
         if (player.IsMove == false) player.IsMove = true;
     }
 
@@ -26,7 +27,7 @@ public class PlayerMoveState : PlayerBaseMoveState
 
     public override void ExitState()
     {
-        if (player.IsRun) return;
+        if (player.IsRun || player.IsJump) return;
         player.IsMove = false;
     }
 }

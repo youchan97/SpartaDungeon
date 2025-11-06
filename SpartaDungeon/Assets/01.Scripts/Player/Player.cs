@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using static ConstValue;
 public class Player : MonoBehaviour
 {
     [SerializeField] PlayerController controller;
@@ -11,11 +11,15 @@ public class Player : MonoBehaviour
 
     [SerializeField] float originSpeed;
     [SerializeField] float runSpeed;
+    [SerializeField] float jumpPower;
     [SerializeField] bool isIdle;
     [SerializeField] bool isMove;
     [SerializeField] bool isGround;
     [SerializeField] bool isJump;
     [SerializeField] bool isRun;
+
+    [SerializeField] float rayDistance;
+    [SerializeField] LayerMask groundLayer;
 
     PlayerIdleState idleState;
     PlayerMoveState moveState;
@@ -27,6 +31,7 @@ public class Player : MonoBehaviour
     public Rigidbody PlayerRb { get => playerRb; }
     public float OriginSpeed { get => originSpeed; }
     public float RunSpeed { get => runSpeed; }
+    public float JumpPower { get => jumpPower; }
     public bool IsIdle { get => isIdle; set => isIdle = value; }
     public bool IsMove { get => isMove; set => isMove = value; }
     public bool IsGround { get => isGround; set => isGround = value; }
@@ -103,6 +108,12 @@ public class Player : MonoBehaviour
     void PlayerRunEnd()
     {
         IsRun = false;
+    }
+
+    public void CheckGround()
+    {
+        IsGround = Physics.Raycast(transform.position, Vector2.down, rayDistance, groundLayer);
+        Debug.DrawRay(transform.position, Vector2.down * rayDistance, Color.red);
     }
 }
 

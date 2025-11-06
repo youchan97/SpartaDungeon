@@ -26,12 +26,18 @@ public class PlayerStateManager
     public void Update()
     {
         if(curState != null && curState.UseFixedUpdate() == false)
+        {
             curState.UpdateState();
+            player.CheckGround();
+        }
     }
 
     public void FixedUpdate()
     {
         if (curState != null && curState.UseFixedUpdate())
+        {
             curState.FixedUpdateState();
+            player.CheckGround();
+        }
     }
 }

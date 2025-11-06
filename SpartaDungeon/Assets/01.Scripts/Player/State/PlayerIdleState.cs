@@ -17,6 +17,8 @@ public class PlayerIdleState : PlayerState
     {
         if (player.IsMove)
             stateManager.ChangeState(player.MoveState);
+        else if (player.IsJump)
+            stateManager.ChangeState(player.JumpState);
     }
 
     public override void ExitState()

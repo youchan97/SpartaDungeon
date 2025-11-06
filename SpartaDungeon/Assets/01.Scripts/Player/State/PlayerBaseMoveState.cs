@@ -25,9 +25,16 @@ public abstract class PlayerBaseMoveState : PlayerState
         //if (!player.IsGround) return;
 
         Vector2 playerMoveVec = controller.moveVec;
+        if (player.IsJump)
+        {
+            stateManager.ChangeState(player.JumpState);
+            return;
+        }
         if (playerMoveVec.sqrMagnitude < 0.01f)
+        {
             stateManager.ChangeState(player.IdleState);
-
+            return;
+        }
         Vector3 vec = new Vector3(playerMoveVec.x, 0, playerMoveVec.y);
         Vector3 velocity = vec * GetSpeed();
         velocity.y = rb.velocity.y;
