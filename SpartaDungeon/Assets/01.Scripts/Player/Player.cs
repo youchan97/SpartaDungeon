@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     PlayerStateManager stateManager;
 
     [SerializeField] float originSpeed;
-    [SerializeField] float runSpeed;
+    [SerializeField] float runBonusSpeed;
     [SerializeField] float jumpPower;
     [SerializeField] bool isIdle;
     [SerializeField] bool isMove;
@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
     public PlayerController Controller { get => controller; }
     public Rigidbody PlayerRb { get => playerRb; }
     public float OriginSpeed { get => originSpeed; }
-    public float RunSpeed { get => runSpeed; }
+    public float RunBonusSpeed { get => runBonusSpeed; }
     public float JumpPower { get => jumpPower; }
     public bool IsIdle { get => isIdle; set => isIdle = value; }
     public bool IsMove { get => isMove; set => isMove = value; }
