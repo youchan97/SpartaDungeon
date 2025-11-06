@@ -115,5 +115,13 @@ public class Player : MonoBehaviour
         IsGround = Physics.Raycast(transform.position, Vector2.down, rayDistance, groundLayer);
         Debug.DrawRay(transform.position, Vector2.down * rayDistance, Color.red);
     }
+
+    public void PlayerSpeedUp(float value) => originSpeed += value;
+
+    public void PlayerSpeedDown(float value) => originSpeed -= value;
+
+    public void PlayerJumpPowerUp(float value) => jumpPower += value;
+
+    public void PlayerJumpPowerDown(float value) => jumpPower -= value;
 }
 

@@ -8,6 +8,4 @@ public class ItemScriptable : ScriptableObject
     public string name;
     public string description;
     public ItemType type;
-    public int value;
-    public float coolTime;
 }
