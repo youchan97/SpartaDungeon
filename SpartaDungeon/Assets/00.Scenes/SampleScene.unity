@@ -286,7 +286,7 @@ MonoBehaviour:
   controller: {fileID: 17268656}
   playerRb: {fileID: 17268657}
   originSpeed: 3
-  runSpeed: 5
+  runBonusSpeed: 3
   jumpPower: 4
   isIdle: 0
   isMove: 0
