@@ -7,18 +7,66 @@ public class Player : MonoBehaviour
 {
     [SerializeField] PlayerController controller;
     [SerializeField] Rigidbody playerRb;
+    PlayerStateManager stateManager;
 
     [SerializeField] float originSpeed;
     [SerializeField] float runSpeed;
+    [SerializeField] bool isIdle;
+    [SerializeField] bool isMove;
+    [SerializeField] bool isGround;
+    [SerializeField] bool isJump;
+    [SerializeField] bool isRun;
+
+    PlayerIdleState idleState;
+    PlayerMoveState moveState;
+    PlayerJumpState jumpState;
+    PlayerRunState runState;
+
+    #region Property
+    public PlayerController Controller { get => controller; }
+    public Rigidbody PlayerRb { get => playerRb; }
+    public float OriginSpeed { get => originSpeed; }
+    public float RunSpeed { get => runSpeed; }
+    public bool IsIdle { get => isIdle; set => isIdle = value; }
+    public bool IsMove { get => isMove; set => isMove = value; }
+    public bool IsGround { get => isGround; set => isGround = value; }
+    public bool IsJump { get => isJump; set => isJump = value; }
+    public bool IsRun { get => isRun; set => isRun = value; }
+    public PlayerIdleState IdleState { get => idleState;}
+    public PlayerMoveState MoveState { get => moveState;}
+    public PlayerJumpState JumpState { get => jumpState;}
+    public PlayerRunState RunState { get => runState; set => runState = value; }
+    #endregion
+
+    private void Awake()
+    {
+        stateManager = new PlayerStateManager(this);
+    }
 
     void Start()
     {
-        
+        InitState();
+        ChainAction();
+        stateManager.ChangeState(IdleState);
     }
-    void FixedUpdate()
+
+    private void Update()
     {
-        
+        stateManager.Update();
     }
+
+    private void FixedUpdate()
+    {
+        stateManager.FixedUpdate();
+    }
+    void InitState()
+    {
+        idleState = new PlayerIdleState(this, stateManager);
+        moveState = new PlayerMoveState(this, stateManager);
+        jumpState = new PlayerJumpState(this, stateManager);
+        runState = new PlayerRunState(this, stateManager);
+    }
+
 
     void ChainAction()
     {
@@ -39,26 +87,22 @@ public class Player : MonoBehaviour
 
     void PlayerMove()
     {
-        Vector2 playerMoveVec = controller.moveVec;
-        Vector3 vec = new Vector3(playerMoveVec.x, 0, playerMoveVec.y);
-        Vector3 velocity = vec * originSpeed;
-        velocity.y = playerRb.velocity.y;
-        playerRb.velocity = velocity;
+        IsMove = true;
     }
 
     void PlayerJump()
     {
-
+        IsJump = true;
     }
 
     void PlayerRun()
     {
-
+        IsRun = true;
     }
 
     void PlayerRunEnd()
     {
-
+        IsRun = false;
     }
 }
 

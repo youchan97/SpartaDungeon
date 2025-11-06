@@ -25,11 +25,13 @@ public class PlayerController : MonoBehaviour
         actionController = new PlayerActionController();
         InitInputAction();
         AddInput();
+        EnableInput();
     }
 
     public void AddInput()
     {
         moveAction.performed += MovePerformed;
+        moveAction.canceled += MoveCanceled;
         jumpAction.performed += JumpPerformed;
         runAction.performed += RunPerformed;
         runAction.canceled += RunCanceled;
@@ -37,6 +39,7 @@ public class PlayerController : MonoBehaviour
     public void RemoveInput()
     {
         moveAction.performed -= MovePerformed;
+        moveAction.canceled -= MoveCanceled;
         jumpAction.performed -= JumpPerformed;
         runAction.performed -= RunPerformed;
         runAction.canceled -= RunCanceled;
@@ -71,6 +74,11 @@ public class PlayerController : MonoBehaviour
         OnMove?.Invoke();
     }
 
+    void MoveCanceled(InputAction.CallbackContext context)
+    {
+        moveVec = Vector2.zero;
+        OnMove?.Invoke();
+    }
 
     void JumpPerformed(InputAction.CallbackContext context)
     {
