@@ -13,9 +13,9 @@ public class Item : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.GetComponent<Player>() != null)
+        Player player = other.GetComponent<Player>();
+        if(player != null)
         {
-            Player player = other.GetComponent<Player>();
             Destroy(this.gameObject);
             //player.TakeDamage(10f); //플레이어 hp UI 테스트용
             player.buffManager.AddBuff(buffData);

@@ -153,7 +153,12 @@ public class Player : MonoBehaviour
         playerCamera.CameraRotate(vec);
     }
     #endregion
-
+    #region Interaction Object
+    public void JumpingPlayer(float value)
+    {
+        playerRb.AddForce(Vector3.up * value, ForceMode.Impulse);
+    }
+    #endregion
     #region ItemInteraction
     public void PlayerSpeedUp(float value) => speed += value;
 
@@ -192,6 +197,9 @@ public class Player : MonoBehaviour
             gameCanvasManager.ItemDescription(null, isOn);
     }
     #endregion
+
+
+
 
     #region Obstacle OR Monster Interaction
     public void TakeDamage(float damage)
