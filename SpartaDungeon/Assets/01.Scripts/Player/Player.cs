@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     [SerializeField] Rigidbody playerRb;
     PlayerStateManager stateManager;
     public BuffManager buffManager;
+    GameCanvasManager gameCanvasManager;
     
 
     [SerializeField] float speed;
@@ -72,6 +73,11 @@ public class Player : MonoBehaviour
         moveState = new PlayerMoveState(this, stateManager);
         jumpState = new PlayerJumpState(this, stateManager);
         runState = new PlayerRunState(this, stateManager);
+    }
+
+    public void InitCanvas(GameCanvasManager gcm)
+    {
+        gameCanvasManager = gcm;
     }
 
 
