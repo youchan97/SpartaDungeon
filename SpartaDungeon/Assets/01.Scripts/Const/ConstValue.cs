@@ -4,5 +4,6 @@ using UnityEngine;
 
 public static class ConstValue
 {
-    public const string GroundLayer = "Ground";
+    public const float AirLowSpeed = 0.4f;
+    public const float GroundCheckCoolTime = 0.2f;
 }

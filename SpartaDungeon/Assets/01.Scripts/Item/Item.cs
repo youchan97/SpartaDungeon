@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public abstract class Item : MonoBehaviour
+public class Item : MonoBehaviour
 { 
-    [SerializeField] protected ItemScriptable itemScriptable;
+    [SerializeField] protected ItemScriptable itemData;
+    [SerializeField] protected BuffScriptable buffData;
 
-    public abstract void ItemAffect(Player player);
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.GetComponent<Player>() != null)
         {
             Player player = other.GetComponent<Player>();
-            ItemAffect(player);
+            Destroy(this.gameObject);
+            player.buffManager.AddBuff(buffData);
         }
     }
 }

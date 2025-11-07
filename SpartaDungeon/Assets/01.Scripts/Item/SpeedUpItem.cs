@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class SpeedUpItem : Item
 {
-    public override void ItemAffect(Player player)
-    {
-    }
+
 
 }

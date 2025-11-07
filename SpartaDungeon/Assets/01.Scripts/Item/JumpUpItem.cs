@@ -4,8 +4,5 @@ using UnityEngine;
 
 public class JumpUpItem : Item
 {  
-    public override void ItemAffect(Player player)
-    {
-    }
-
+ 
 }

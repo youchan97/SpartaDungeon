@@ -2,14 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static ConstValue;
 public class Player : MonoBehaviour
 {
     [SerializeField] PlayerController controller;
     [SerializeField] Rigidbody playerRb;
     PlayerStateManager stateManager;
+    public BuffManager buffManager;
+    
 
-    [SerializeField] float originSpeed;
+    [SerializeField] float speed;
     [SerializeField] float runBonusSpeed;
     [SerializeField] float jumpPower;
     [SerializeField] bool isIdle;
@@ -29,7 +30,7 @@ public class Player : MonoBehaviour
     #region Property
     public PlayerController Controller { get => controller; }
     public Rigidbody PlayerRb { get => playerRb; }
-    public float OriginSpeed { get => originSpeed; }
+    public float Speed { get => speed; }
     public float RunBonusSpeed { get => runBonusSpeed; }
     public float JumpPower { get => jumpPower; }
     public bool IsIdle { get => isIdle; set => isIdle = value; }
@@ -46,6 +47,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         stateManager = new PlayerStateManager(this);
+        buffManager = new BuffManager(this);
     }
 
     void Start()
@@ -116,9 +118,9 @@ public class Player : MonoBehaviour
         Debug.DrawRay(transform.position, Vector2.down * rayDistance, Color.red);
     }
 
-    public void PlayerSpeedUp(float value) => originSpeed += value;
+    public void PlayerSpeedUp(float value) => speed += value;
 
-    public void PlayerSpeedDown(float value) => originSpeed -= value;
+    public void PlayerSpeedDown(float value) => speed -= value;
 
     public void PlayerJumpPowerUp(float value) => jumpPower += value;
 

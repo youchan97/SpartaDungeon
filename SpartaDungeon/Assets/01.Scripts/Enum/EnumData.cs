@@ -8,5 +8,10 @@ public enum ItemType
     JumpUp
 }
 
+public enum BuffType
+{
+    Speed,
+    Jump
+}
 
 public class EnumData { }
