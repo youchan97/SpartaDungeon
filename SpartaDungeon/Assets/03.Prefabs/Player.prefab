@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6584256298608328776}
+  - component: {fileID: 8985679604309708152}
   - component: {fileID: 8253667751472969176}
   - component: {fileID: 3498869445805277856}
   - component: {fileID: 380140692891891959}
@@ -34,6 +35,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7545785479679978637}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8985679604309708152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 396709391762204806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7eff976a5bb9f848863faab38196081, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransform: {fileID: 7545785479679978637}
+  sensivityX: 20
+  sensivityY: 20
+  clampY: 80
 --- !u!20 &8253667751472969176
 Camera:
   m_ObjectHideFlags: 0
@@ -271,6 +288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 4729823650905367600}
   playerRb: {fileID: 7236268490915367539}
+  playerCamera: {fileID: 8985679604309708152}
   hp: 100
   maxHp: 100
   speed: 3
@@ -352,3 +370,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveVec: {x: 0, y: 0}
+  lookVec: {x: 0, y: 0}

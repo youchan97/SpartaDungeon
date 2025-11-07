@@ -42,9 +42,11 @@ public class PlayerJumpState : PlayerState
     public void JumpMove()
     {
         Vector2 playerMoveVec = controller.moveVec;
+        Transform cameraTransform = player.PlayerCamera.transform;
         float speed = player.IsRun ? player.Speed + player.RunBonusSpeed : player.Speed;
         speed *= AirLowSpeed;
-        Vector3 vec = new Vector3(playerMoveVec.x, 0, playerMoveVec.y);
+        Vector3 vec = cameraTransform.TransformDirection(new Vector3(playerMoveVec.x, 0, playerMoveVec.y));
+        vec.y = 0f;
         Vector3 velocity = vec * speed;
         velocity.y = rb.velocity.y;
         rb.velocity = Vector3.Lerp(rb.velocity, velocity, 0.1f);

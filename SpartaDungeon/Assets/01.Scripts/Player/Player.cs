@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     PlayerStateManager stateManager;
     public BuffManager buffManager;
     GameCanvasManager gameCanvasManager;
+    [SerializeField] PlayerCameraController playerCamera;
 
     [Header("플레이어 능력치")]
     [SerializeField] float hp;
@@ -43,6 +44,8 @@ public class Player : MonoBehaviour
     #region Property
     public PlayerController Controller { get => controller; }
     public Rigidbody PlayerRb { get => playerRb; }
+
+    public PlayerCameraController PlayerCamera { get => playerCamera; }
     public float Hp
     { 
         get => hp;
@@ -86,6 +89,11 @@ public class Player : MonoBehaviour
     {
         stateManager.FixedUpdate();
     }
+
+    private void LateUpdate()
+    {
+        PlayerLook();
+    }
     void InitState()
     {
         idleState = new PlayerIdleState(this, stateManager);
@@ -107,6 +115,7 @@ public class Player : MonoBehaviour
         controller.OnJump += PlayerJump;
         controller.OnRun += PlayerRun;
         controller.OnRunEnd += PlayerRunEnd;
+        controller.OnLook += PlayerLook;
     }
 
     void RemoveChain()
@@ -115,6 +124,7 @@ public class Player : MonoBehaviour
         controller.OnJump -= PlayerJump;
         controller.OnRun -= PlayerRun;
         controller.OnRunEnd -= PlayerRunEnd;
+        controller.OnLook -= PlayerLook;
     }
 
     void PlayerMove()
@@ -135,6 +145,12 @@ public class Player : MonoBehaviour
     void PlayerRunEnd()
     {
         IsRun = false;
+    }
+
+    void PlayerLook()
+    {
+        Vector2 vec = controller.lookVec;
+        playerCamera.CameraRotate(vec);
     }
     #endregion
 
@@ -164,8 +180,8 @@ public class Player : MonoBehaviour
     void CheckItemForward()
     {
         
-        bool isOn = Physics.SphereCast(rayObj.transform.position,rayRadius, Vector3.forward,out RaycastHit hit, objRayDistance, objLayer);
-        Debug.DrawRay(rayObj.transform.position, Vector3.forward * objRayDistance, Color.red);
+        bool isOn = Physics.SphereCast(rayObj.transform.position,rayRadius, transform.forward,out RaycastHit hit, objRayDistance, objLayer);
+        Debug.DrawRay(rayObj.transform.position, transform.forward * objRayDistance, Color.red);
         if (isOn)
         {
             Item item = hit.collider.GetComponent<Item>();

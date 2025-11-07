@@ -11,14 +11,17 @@ public class PlayerController : MonoBehaviour
     InputAction moveAction;
     InputAction jumpAction;
     InputAction runAction;
+    InputAction lookAction;
 
     public Action OnMove;
     public Action OnJump;
     public Action OnRun;
     public Action OnRunEnd;
+    public Action OnLook;
 
     public Vector2 moveVec;
 
+    public Vector2 lookVec;
 
     private void Awake()
     {
@@ -35,6 +38,8 @@ public class PlayerController : MonoBehaviour
         jumpAction.performed += JumpPerformed;
         runAction.performed += RunPerformed;
         runAction.canceled += RunCanceled;
+        lookAction.performed += LookPerformed;
+        lookAction.canceled += LookCanceled;
     }
     public void RemoveInput()
     {
@@ -43,6 +48,8 @@ public class PlayerController : MonoBehaviour
         jumpAction.performed -= JumpPerformed;
         runAction.performed -= RunPerformed;
         runAction.canceled -= RunCanceled;
+        lookAction.performed += LookPerformed;
+        lookAction.canceled += LookCanceled;
     }
 
 
@@ -51,6 +58,7 @@ public class PlayerController : MonoBehaviour
         moveAction = actionController.Player.Move;
         jumpAction = actionController.Player.Jump;
         runAction = actionController.Player.Run;
+        lookAction = actionController.Player.Look;
     }
 
     public void EnableInput()
@@ -58,6 +66,7 @@ public class PlayerController : MonoBehaviour
         moveAction.Enable();
         jumpAction.Enable();
         runAction.Enable();
+        lookAction.Enable();
     }
 
     public void DisableInput()
@@ -65,6 +74,7 @@ public class PlayerController : MonoBehaviour
         moveAction.Disable();
         jumpAction.Disable();
         runAction.Disable();
+        lookAction.Disable();
     }
 
 
@@ -96,4 +106,15 @@ public class PlayerController : MonoBehaviour
         OnRunEnd?.Invoke();
     }
 
+    void LookPerformed(InputAction.CallbackContext context)
+    {
+        lookVec = context.ReadValue<Vector2>();
+        OnLook?.Invoke();
+    }
+
+    void LookCanceled(InputAction.CallbackContext context)
+    {
+        lookVec = Vector2.zero;
+        OnLook?.Invoke();
+    }
 }
