@@ -8,7 +8,7 @@ public class PlayerMoveState : PlayerBaseMoveState
     {
     }
 
-    protected override float GetSpeed() => player.OriginSpeed;
+    protected override float GetSpeed() => player.Speed;
 
     public override void EnterState()
     {

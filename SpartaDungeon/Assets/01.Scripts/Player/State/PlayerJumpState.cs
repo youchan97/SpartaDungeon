@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using static ConstValue;
 
 public class PlayerJumpState : PlayerState
 {
     Rigidbody rb;
+    PlayerController controller;
     float groundCoolTime;
     public PlayerJumpState(Player player, PlayerStateManager stateManager) : base(player, stateManager)
     {
@@ -14,6 +17,7 @@ public class PlayerJumpState : PlayerState
 
     public override void EnterState()
     {
+        controller = player.Controller;
         rb = player.PlayerRb;
         rb.AddForce(Vector3.up * player.JumpPower, ForceMode.Impulse);
         groundCoolTime = 0f;
@@ -21,8 +25,10 @@ public class PlayerJumpState : PlayerState
 
     public override void FixedUpdateState()
     {
+        if (player.IsMove)
+            JumpMove();
         groundCoolTime += Time.fixedDeltaTime;
-        if(player.IsGround && groundCoolTime >= 0.2f)
+        if(player.IsGround && groundCoolTime >= GroundCheckCoolTime)
         {
             if (player.IsMove && player.IsRun == false)
                 stateManager.ChangeState(player.MoveState);
@@ -32,6 +38,19 @@ public class PlayerJumpState : PlayerState
                 stateManager.ChangeState(player.IdleState);
         }
     }
+
+    public void JumpMove()
+    {
+        Vector2 playerMoveVec = controller.moveVec;
+        float speed = player.IsRun ? player.Speed + player.RunBonusSpeed : player.Speed;
+        speed *= AirLowSpeed;
+        Vector3 vec = new Vector3(playerMoveVec.x, 0, playerMoveVec.y);
+        Vector3 velocity = vec * speed;
+        velocity.y = rb.velocity.y;
+        rb.velocity = Vector3.Lerp(rb.velocity, velocity, 0.1f);
+    }
+
+
 
     public override void ExitState()
     {

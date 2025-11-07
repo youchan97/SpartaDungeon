@@ -12,7 +12,7 @@ public abstract class PlayerBaseMoveState : PlayerState
     }
 
     public override bool UseFixedUpdate() => true;
-    protected virtual float GetSpeed() => player.OriginSpeed;
+    protected virtual float GetSpeed() => player.Speed;
 
     public override void EnterState()
     {
