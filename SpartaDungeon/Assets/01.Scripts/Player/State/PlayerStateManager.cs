@@ -28,7 +28,7 @@ public class PlayerStateManager
         if(curState != null && curState.UseFixedUpdate() == false)
         {
             curState.UpdateState();
-            player.CheckGround();
+            player.CommomCheck();
         }
     }
 
@@ -37,7 +37,7 @@ public class PlayerStateManager
         if (curState != null && curState.UseFixedUpdate())
         {
             curState.FixedUpdateState();
-            player.CheckGround();
+            player.CommomCheck();
         }
     }
 }

@@ -8,6 +8,8 @@ public class Item : MonoBehaviour
     [SerializeField] protected ItemScriptable itemData;
     [SerializeField] protected BuffScriptable buffData;
 
+    public ItemScriptable ItemData { get => itemData; }
+
 
     private void OnTriggerEnter(Collider other)
     {

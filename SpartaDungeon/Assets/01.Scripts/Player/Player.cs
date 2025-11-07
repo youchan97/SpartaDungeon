@@ -4,25 +4,36 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Player : MonoBehaviour
 {
+    [Header("참조 컴포넌트")]
     [SerializeField] PlayerController controller;
     [SerializeField] Rigidbody playerRb;
     PlayerStateManager stateManager;
     public BuffManager buffManager;
     GameCanvasManager gameCanvasManager;
 
+    [Header("플레이어 능력치")]
     [SerializeField] float hp;
     [SerializeField] float maxHp;
     [SerializeField] float speed;
     [SerializeField] float runBonusSpeed;
     [SerializeField] float jumpPower;
+
+    [Header("플레이어 상태 조건")]
     [SerializeField] bool isIdle;
     [SerializeField] bool isMove;
     [SerializeField] bool isGround;
     [SerializeField] bool isJump;
     [SerializeField] bool isRun;
 
-    [SerializeField] float rayDistance;
+    [Header("착지 판정 관련")]
+    [SerializeField] float groundRayDistance;
     [SerializeField] LayerMask groundLayer;
+
+    [Header("인터렉션 정보 관련")]
+    [SerializeField] GameObject rayObj;
+    [SerializeField] float objRayDistance;
+    [SerializeField] float rayRadius;
+    [SerializeField] LayerMask objLayer;
 
     PlayerIdleState idleState;
     PlayerMoveState moveState;
@@ -88,11 +99,6 @@ public class Player : MonoBehaviour
     {
         gameCanvasManager = gcm;
     }
-    public void CheckGround()
-    {
-        IsGround = Physics.Raycast(transform.position, Vector2.down, rayDistance, groundLayer);
-        Debug.DrawRay(transform.position, Vector2.down * rayDistance, Color.red);
-    }
 
     #region InputSystem
     void ChainAction()
@@ -140,6 +146,35 @@ public class Player : MonoBehaviour
     public void PlayerJumpPowerUp(float value) => jumpPower += value;
 
     public void PlayerJumpPowerDown(float value) => jumpPower -= value;
+
+    #endregion
+
+    #region CheckRay
+    public void CommomCheck()
+    {
+        CheckGround();
+        CheckItemForward();
+    }
+
+    void CheckGround()
+    {
+        IsGround = Physics.Raycast(transform.position, Vector3.down, groundRayDistance, groundLayer);
+    }
+
+    void CheckItemForward()
+    {
+        
+        bool isOn = Physics.SphereCast(rayObj.transform.position,rayRadius, Vector3.forward,out RaycastHit hit, objRayDistance, objLayer);
+        Debug.DrawRay(rayObj.transform.position, Vector3.forward * objRayDistance, Color.red);
+        if (isOn)
+        {
+            Item item = hit.collider.GetComponent<Item>();
+            if (item != null)
+                gameCanvasManager.ItemDescription(item, isOn);
+        }
+        else
+            gameCanvasManager.ItemDescription(null, isOn);
+    }
     #endregion
 
     #region Obstacle OR Monster Interaction
