@@ -15,6 +15,7 @@ public class Item : MonoBehaviour
         {
             Player player = other.GetComponent<Player>();
             Destroy(this.gameObject);
+            //player.TakeDamage(10f); //플레이어 hp UI 테스트용
             player.buffManager.AddBuff(buffData);
         }
     }

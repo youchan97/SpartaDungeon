@@ -9,8 +9,9 @@ public class Player : MonoBehaviour
     PlayerStateManager stateManager;
     public BuffManager buffManager;
     GameCanvasManager gameCanvasManager;
-    
 
+    [SerializeField] float hp;
+    [SerializeField] float maxHp;
     [SerializeField] float speed;
     [SerializeField] float runBonusSpeed;
     [SerializeField] float jumpPower;
@@ -31,6 +32,12 @@ public class Player : MonoBehaviour
     #region Property
     public PlayerController Controller { get => controller; }
     public Rigidbody PlayerRb { get => playerRb; }
+    public float Hp
+    { 
+        get => hp;
+        set {  hp = value; hp = Mathf.Clamp(hp, 0f, maxHp); }
+    }
+    public float MaxHp { get => maxHp; }
     public float Speed { get => speed; }
     public float RunBonusSpeed { get => runBonusSpeed; }
     public float JumpPower { get => jumpPower; }
@@ -55,6 +62,7 @@ public class Player : MonoBehaviour
     {
         InitState();
         ChainAction();
+        gameCanvasManager.UpdateHpBar(this);
         stateManager.ChangeState(IdleState);
     }
 
@@ -75,12 +83,18 @@ public class Player : MonoBehaviour
         runState = new PlayerRunState(this, stateManager);
     }
 
+
     public void InitCanvas(GameCanvasManager gcm)
     {
         gameCanvasManager = gcm;
     }
+    public void CheckGround()
+    {
+        IsGround = Physics.Raycast(transform.position, Vector2.down, rayDistance, groundLayer);
+        Debug.DrawRay(transform.position, Vector2.down * rayDistance, Color.red);
+    }
 
-
+    #region InputSystem
     void ChainAction()
     {
         controller.OnMove += PlayerMove;
@@ -96,7 +110,6 @@ public class Player : MonoBehaviour
         controller.OnRun -= PlayerRun;
         controller.OnRunEnd -= PlayerRunEnd;
     }
-
 
     void PlayerMove()
     {
@@ -117,13 +130,9 @@ public class Player : MonoBehaviour
     {
         IsRun = false;
     }
+    #endregion
 
-    public void CheckGround()
-    {
-        IsGround = Physics.Raycast(transform.position, Vector2.down, rayDistance, groundLayer);
-        Debug.DrawRay(transform.position, Vector2.down * rayDistance, Color.red);
-    }
-
+    #region ItemInteraction
     public void PlayerSpeedUp(float value) => speed += value;
 
     public void PlayerSpeedDown(float value) => speed -= value;
@@ -131,5 +140,14 @@ public class Player : MonoBehaviour
     public void PlayerJumpPowerUp(float value) => jumpPower += value;
 
     public void PlayerJumpPowerDown(float value) => jumpPower -= value;
+    #endregion
+
+    #region Obstacle OR Monster Interaction
+    public void TakeDamage(float damage)
+    {
+        hp -= damage;
+        gameCanvasManager.UpdateHpBar(this);
+    }
+    #endregion
 }
 
