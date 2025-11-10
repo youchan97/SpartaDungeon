@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static ConstValue;
 
 public class PlayerIdleState : PlayerState
 {
@@ -11,6 +12,7 @@ public class PlayerIdleState : PlayerState
     public override void EnterState()
     {
         player.IsIdle = true;
+        player.PlayerAnim.SetBool(IdleAnim, true);
     }
 
     public override void UpdateState()
@@ -24,5 +26,6 @@ public class PlayerIdleState : PlayerState
     public override void ExitState()
     {
         player.IsIdle = false;
+        player.PlayerAnim.SetBool(IdleAnim, false);
     }
 }

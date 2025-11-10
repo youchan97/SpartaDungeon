@@ -1399,7 +1399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15fc35f02d973b3409fe4a0765b62989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 7286281226973596685, guid: dbe52517a54aa434b996e9e9390d3a8c,
+  playerPrefab: {fileID: 5606849134366112978, guid: f9cf28f3fac241840ac8b4446c440452,
     type: 3}
   spawnPoint: {fileID: 1860862923}
   gameCanvasManager: {fileID: 1151565892}

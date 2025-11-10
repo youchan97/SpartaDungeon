@@ -7,6 +7,7 @@ public abstract class PlayerBaseMoveState : PlayerState
 {
     PlayerController controller;
     Rigidbody rb;
+    protected Animator anim;
     public PlayerBaseMoveState(Player player, PlayerStateManager stateManager) : base(player, stateManager)
     {
     }
@@ -18,6 +19,7 @@ public abstract class PlayerBaseMoveState : PlayerState
     {
         controller = player.Controller;
         rb = player.PlayerRb;
+        anim = player.PlayerAnim;
     }
 
     public override void FixedUpdateState()

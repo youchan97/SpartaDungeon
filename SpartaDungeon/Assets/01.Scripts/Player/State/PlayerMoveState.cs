@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static ConstValue;
 
 public class PlayerMoveState : PlayerBaseMoveState
 {
@@ -13,8 +14,8 @@ public class PlayerMoveState : PlayerBaseMoveState
     public override void EnterState()
     {
         base.EnterState();
-        Debug.Log("무브");
         if (player.IsMove == false) player.IsMove = true;
+        anim.SetBool(MoveAnim, true);
     }
 
     public override void FixedUpdateState()
@@ -27,6 +28,7 @@ public class PlayerMoveState : PlayerBaseMoveState
 
     public override void ExitState()
     {
+        anim.SetBool(MoveAnim, false);
         if (player.IsRun || player.IsJump) return;
         player.IsMove = false;
     }

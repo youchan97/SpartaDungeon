@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class Player : MonoBehaviour
 {
     [Header("참조 컴포넌트")]
     [SerializeField] PlayerController controller;
     [SerializeField] Rigidbody playerRb;
+    [SerializeField] Animator playerAnim;
     PlayerStateManager stateManager;
     public BuffManager buffManager;
     GameCanvasManager gameCanvasManager;
@@ -44,7 +46,7 @@ public class Player : MonoBehaviour
     #region Property
     public PlayerController Controller { get => controller; }
     public Rigidbody PlayerRb { get => playerRb; }
-
+    public Animator PlayerAnim { get => playerAnim; }
     public PlayerCameraController PlayerCamera { get => playerCamera; }
     public float Hp
     { 
@@ -179,7 +181,7 @@ public class Player : MonoBehaviour
 
     void CheckGround()
     {
-        IsGround = Physics.Raycast(transform.position, Vector3.down, groundRayDistance, groundLayer);
+        IsGround = Physics.Raycast(rayObj.transform.position, Vector3.down, groundRayDistance, groundLayer);
     }
 
     void CheckItemForward()

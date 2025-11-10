@@ -9,6 +9,7 @@ public class PlayerJumpState : PlayerState
     Rigidbody rb;
     PlayerController controller;
     float groundCoolTime;
+    Animator anim;
     public PlayerJumpState(Player player, PlayerStateManager stateManager) : base(player, stateManager)
     {
     }
@@ -19,6 +20,9 @@ public class PlayerJumpState : PlayerState
     {
         controller = player.Controller;
         rb = player.PlayerRb;
+        anim = player.PlayerAnim;
+        anim.ResetTrigger(JumpEndAnim);
+        anim.SetTrigger(JumpStartAnim);
         rb.AddForce(Vector3.up * player.JumpPower, ForceMode.Impulse);
         groundCoolTime = 0f;
     }
@@ -28,8 +32,12 @@ public class PlayerJumpState : PlayerState
         if (player.IsMove)
             JumpMove();
         groundCoolTime += Time.fixedDeltaTime;
+
+        anim.SetFloat(JumpVeclocity, rb.velocity.y);
+
         if(player.IsGround && groundCoolTime >= GroundCheckCoolTime)
         {
+            anim.SetTrigger(JumpEndAnim);
             if (player.IsMove && player.IsRun == false)
                 stateManager.ChangeState(player.MoveState);
             else if (player.IsMove && player.IsRun)
