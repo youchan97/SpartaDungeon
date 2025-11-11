@@ -12,4 +12,6 @@ public static class ConstValue
     public const string JumpStartAnim = "JumpStart";
     public const string JumpVeclocity = "VelocityY";
     public const string JumpEndAnim = "JumpEnd";
+    public const string AirBornAnim = "AirBorn";
+    public const string RunAnim = "IsRun";
 }

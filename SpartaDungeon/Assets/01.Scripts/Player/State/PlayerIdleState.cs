@@ -18,9 +18,18 @@ public class PlayerIdleState : PlayerState
     public override void UpdateState()
     {
         if (player.IsMove)
+        {
             stateManager.ChangeState(player.MoveState);
+            return;
+        }
         else if (player.IsJump)
+        {
             stateManager.ChangeState(player.JumpState);
+            return;
+        }
+
+        if (!player.IsGround)
+            stateManager.ChangeState(player.AirbornState);
     }
 
     public override void ExitState()

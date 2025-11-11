@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using static ConstValue;
 public class PlayerRunState : PlayerBaseMoveState
 {
     public PlayerRunState(Player player, PlayerStateManager stateManager) : base(player, stateManager)
@@ -13,6 +13,7 @@ public class PlayerRunState : PlayerBaseMoveState
     public override void EnterState()
     {
         base.EnterState();
+        player.PlayerAnim.SetBool(RunAnim, true);
     }
 
     public override void FixedUpdateState()
@@ -26,5 +27,6 @@ public class PlayerRunState : PlayerBaseMoveState
     public override void ExitState()
     {
         base.ExitState();
+        player.PlayerAnim.SetBool(RunAnim, false);
     }
 }

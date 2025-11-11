@@ -42,6 +42,7 @@ public class Player : MonoBehaviour
     PlayerMoveState moveState;
     PlayerJumpState jumpState;
     PlayerRunState runState;
+    PlayerAirbornState airbornState;
 
     #region Property
     public PlayerController Controller { get => controller; }
@@ -65,7 +66,8 @@ public class Player : MonoBehaviour
     public PlayerIdleState IdleState { get => idleState;}
     public PlayerMoveState MoveState { get => moveState;}
     public PlayerJumpState JumpState { get => jumpState;}
-    public PlayerRunState RunState { get => runState; set => runState = value; }
+    public PlayerRunState RunState { get => runState;}
+    public PlayerAirbornState AirbornState { get => airbornState;}
     #endregion
 
     private void Awake()
@@ -102,6 +104,7 @@ public class Player : MonoBehaviour
         moveState = new PlayerMoveState(this, stateManager);
         jumpState = new PlayerJumpState(this, stateManager);
         runState = new PlayerRunState(this, stateManager);
+        airbornState = new PlayerAirbornState(this, stateManager);
     }
 
 
