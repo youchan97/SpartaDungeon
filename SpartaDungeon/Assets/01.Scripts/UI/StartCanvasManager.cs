@@ -12,6 +12,6 @@ public class StartCanvasManager : MonoBehaviour
     }
     public void GameStart()
     {
-        SceneManager.LoadScene(GameSceneName);
+        LoadingManager.LoadScene(GameSceneName);
     }
 }
