@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField] Animator playerAnim;
     PlayerStateManager stateManager;
     public BuffManager buffManager;
+    GameManager gameManager;
     GameCanvasManager gameCanvasManager;
     [SerializeField] PlayerCameraController playerCamera;
 
@@ -74,6 +75,8 @@ public class Player : MonoBehaviour
     {
         stateManager = new PlayerStateManager(this);
         buffManager = new BuffManager(this);
+        gameManager = GameManager.Instance;
+        gameManager.player = this;
     }
 
     void Start()
