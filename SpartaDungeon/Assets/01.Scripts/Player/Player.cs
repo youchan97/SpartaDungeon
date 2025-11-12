@@ -190,8 +190,8 @@ public class Player : MonoBehaviour
     void CheckItemForward()
     {
         
-        bool isOn = Physics.SphereCast(rayObj.transform.position,rayRadius, transform.forward,out RaycastHit hit, objRayDistance, objLayer);
-        Debug.DrawRay(rayObj.transform.position, transform.forward * objRayDistance, Color.red);
+        bool isOn = Physics.SphereCast(rayObj.transform.position,rayRadius, rayObj.transform.forward,out RaycastHit hit, objRayDistance, objLayer);
+        Debug.DrawRay(rayObj.transform.position, rayObj.transform.forward * objRayDistance, Color.red);
         if (isOn)
         {
             Item item = hit.collider.GetComponent<Item>();

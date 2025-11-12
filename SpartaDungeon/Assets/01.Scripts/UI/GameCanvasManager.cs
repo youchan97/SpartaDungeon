@@ -36,7 +36,7 @@ public class GameCanvasManager : MonoBehaviour
         ItemScriptable itemData = item.ItemData;
         descriptionUi.gameObject.SetActive(true);
         title.text = itemData.itemName;
-        descrip.text = itemData.description;
+        descrip.text = string.Format("설명 : {0}", itemData.description);
     }
 
 
