@@ -14,6 +14,10 @@ public class UiManager : SingletonManager<UiManager>
     GameManager gameManager;
     SoundManager soundManager;
 
+    public GameCanvasManager gameCanvasManager;
+
+    public GameObject OptionPanel { get => optionPanel; }
+
     private void Start()
     {
         gameManager = GameManager.Instance;
@@ -23,13 +27,15 @@ public class UiManager : SingletonManager<UiManager>
 
     public void OpenOptionPanel()
     {
-        gameManager.PauseGame();
+        if(!gameManager.IsPause)
+            gameManager.PauseGame();
         optionPanel.SetActive(true);
     }
 
     public void CloseOptionPanel()
     {
-        gameManager.ResumeGame();
+        if(gameManager.IsPause && !gameCanvasManager.menuPopup.activeSelf)
+            gameManager.ResumeGame();
         optionPanel.SetActive(false);
     }
     public void OpenExitPanel()

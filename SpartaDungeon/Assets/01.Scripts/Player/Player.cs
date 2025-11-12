@@ -129,6 +129,7 @@ public class Player : MonoBehaviour
         controller.OnRun += PlayerRun;
         controller.OnRunEnd += PlayerRunEnd;
         controller.OnLook += PlayerLook;
+        controller.OnPause += PlayerPause;
     }
 
     void RemoveChain()
@@ -138,6 +139,7 @@ public class Player : MonoBehaviour
         controller.OnRun -= PlayerRun;
         controller.OnRunEnd -= PlayerRunEnd;
         controller.OnLook -= PlayerLook;
+        controller.OnPause -= PlayerPause;
     }
 
     void PlayerMove()
@@ -164,6 +166,18 @@ public class Player : MonoBehaviour
     {
         Vector2 vec = controller.lookVec;
         playerCamera.CameraRotate(vec);
+    }
+
+    void PlayerPause()
+    {
+        if (!gameManager.IsPause)
+        {
+            gameCanvasManager.OpenMenu();
+        }
+        else
+        {
+            gameCanvasManager.CloseMenu();
+        }
     }
     #endregion
     #region Interaction Object

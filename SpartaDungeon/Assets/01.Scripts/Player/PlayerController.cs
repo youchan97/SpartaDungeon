@@ -31,11 +31,14 @@ public class PlayerController : MonoBehaviour
         InitInputAction();
         AddInput();
         EnableInput();
+        PauseEnable();
     }
 
     private void OnDisable()
     {
         RemoveInput();
+        DisableInput();
+        PauseDisable();
     }
 
 
@@ -69,7 +72,7 @@ public class PlayerController : MonoBehaviour
         jumpAction = actionController.Player.Jump;
         runAction = actionController.Player.Run;
         lookAction = actionController.Player.Look;
-
+        pauseAction = actionController.Player.Pause;
     }
 
     public void EnableInput()
@@ -88,6 +91,8 @@ public class PlayerController : MonoBehaviour
         lookAction.Disable();
     }
 
+    public void PauseEnable() => pauseAction.Enable();
+    public void PauseDisable() => pauseAction.Disable();
 
     void MovePerformed(InputAction.CallbackContext context)
     {
