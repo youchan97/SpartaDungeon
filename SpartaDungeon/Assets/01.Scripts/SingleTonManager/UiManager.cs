@@ -8,12 +8,18 @@ public class UiManager : SingletonManager<UiManager>
     [SerializeField] GameObject optionPanel;
     [SerializeField] GameObject exitPanel;
 
+    [SerializeField] Slider bgmSlider;
+    [SerializeField] Slider effectSlider;
+
     GameManager gameManager;
+    SoundManager soundManager;
 
     private void Start()
     {
         gameManager = GameManager.Instance;
+        soundManager = SoundManager.Instance;
     }
+
 
     public void OpenOptionPanel()
     {
@@ -41,5 +47,15 @@ public class UiManager : SingletonManager<UiManager>
     public void OnClickExit()
     {
         gameManager.ExitGame();
+    }
+
+    public void ChangeBgmVolumeSlider()
+    {
+        soundManager.ChangeBgmVolume(bgmSlider.value);
+    }
+
+    public void ChangeEffectVolumeSlider()
+    {
+        soundManager.ChangeEffectVolume(effectSlider.value);
     }
 }

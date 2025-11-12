@@ -12,12 +12,14 @@ public class PlayerController : MonoBehaviour
     InputAction jumpAction;
     InputAction runAction;
     InputAction lookAction;
+    InputAction pauseAction;
 
     public Action OnMove;
     public Action OnJump;
     public Action OnRun;
     public Action OnRunEnd;
     public Action OnLook;
+    public Action OnPause;
 
     public Vector2 moveVec;
 
@@ -31,6 +33,12 @@ public class PlayerController : MonoBehaviour
         EnableInput();
     }
 
+    private void OnDisable()
+    {
+        RemoveInput();
+    }
+
+
     public void AddInput()
     {
         moveAction.performed += MovePerformed;
@@ -40,6 +48,7 @@ public class PlayerController : MonoBehaviour
         runAction.canceled += RunCanceled;
         lookAction.performed += LookPerformed;
         lookAction.canceled += LookCanceled;
+        pauseAction.performed += PausePerformed;
     }
     public void RemoveInput()
     {
@@ -50,6 +59,7 @@ public class PlayerController : MonoBehaviour
         runAction.canceled -= RunCanceled;
         lookAction.performed += LookPerformed;
         lookAction.canceled += LookCanceled;
+        pauseAction.performed -= PausePerformed;
     }
 
 
@@ -59,6 +69,7 @@ public class PlayerController : MonoBehaviour
         jumpAction = actionController.Player.Jump;
         runAction = actionController.Player.Run;
         lookAction = actionController.Player.Look;
+
     }
 
     public void EnableInput()
@@ -116,5 +127,10 @@ public class PlayerController : MonoBehaviour
     {
         lookVec = Vector2.zero;
         OnLook?.Invoke();
+    }
+
+    void PausePerformed(InputAction.CallbackContext context)
+    {
+        OnPause?.Invoke();
     }
 }

@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class GameCanvasManager : MonoBehaviour
 {
+    UiManager uiManager;
+
     [Header("Hp관련")]
     [SerializeField] Slider hpBar;
 
@@ -13,6 +15,11 @@ public class GameCanvasManager : MonoBehaviour
     [SerializeField] GameObject descriptionUi;
     [SerializeField] TextMeshProUGUI title;
     [SerializeField] TextMeshProUGUI descrip;
+
+    private void Start()
+    {
+        uiManager = UiManager.Instance;
+    }
 
     public void UpdateHpBar(Player player)
     {
@@ -39,5 +46,14 @@ public class GameCanvasManager : MonoBehaviour
         descrip.text = string.Format("설명 : {0}", itemData.description);
     }
 
+    public void OpenOptionPanel()
+    {
+        uiManager.OpenOptionPanel();
+    }
+
+    public void OnClickRestartButton()
+    {
+        GameManager.Instance.RestartGame();
+    }
 
 }

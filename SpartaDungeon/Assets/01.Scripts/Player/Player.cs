@@ -87,6 +87,11 @@ public class Player : MonoBehaviour
         stateManager.ChangeState(IdleState);
     }
 
+    private void OnDisable()
+    {
+        RemoveChain();
+    }
+
     private void Update()
     {
         stateManager.Update();
@@ -178,6 +183,20 @@ public class Player : MonoBehaviour
 
     #endregion
 
+    #region Pause
+    public void PausePlayer()
+    {
+        controller.DisableInput();
+        playerAnim.speed = 0f;
+    }
+
+    public void ResumePlayer()
+    {
+        controller.EnableInput();
+        playerAnim.speed = 1f;
+    }
+    #endregion
+
     #region CheckRay
     public void CommomCheck()
     {
@@ -205,9 +224,6 @@ public class Player : MonoBehaviour
             gameCanvasManager.ItemDescription(null, isOn);
     }
     #endregion
-
-
-
 
     #region Obstacle OR Monster Interaction
     public void TakeDamage(float damage)
