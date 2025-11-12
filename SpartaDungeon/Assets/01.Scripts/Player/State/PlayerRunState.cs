@@ -19,10 +19,19 @@ public class PlayerRunState : PlayerBaseMoveState
     public override void FixedUpdateState()
     {
         base.FixedUpdateState();
-        if (player.IsRun == false)
+        player.DecreaseStamina(RunStaminaDuration);
+        if(player.Stamina <= 0)
+        {
+            player.IsRun = false;
             stateManager.ChangeState(player.MoveState);
+            return;
+        }
+        if (player.IsRun == false)
+        {
+            stateManager.ChangeState(player.MoveState);
+            return;
+        }
     }
-
 
     public override void ExitState()
     {

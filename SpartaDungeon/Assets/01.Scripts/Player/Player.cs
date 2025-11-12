@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] float runBonusSpeed;
     [SerializeField] float jumpPower;
+    [SerializeField] float stamina;
+    [SerializeField] float maxStamina;
 
     [Header("플레이어 상태 조건")]
     [SerializeField] bool isIdle;
@@ -59,6 +61,12 @@ public class Player : MonoBehaviour
     public float Speed { get => speed; }
     public float RunBonusSpeed { get => runBonusSpeed; }
     public float JumpPower { get => jumpPower; }
+    public float Stamina
+    {
+        get => stamina;
+        set { stamina = value; stamina = Mathf.Clamp(stamina, 0f, maxStamina); }
+    }
+    public float MaxStamina { get => maxStamina; }
     public bool IsIdle { get => isIdle; set => isIdle = value; }
     public bool IsMove { get => isMove; set => isMove = value; }
     public bool IsGround { get => isGround; set => isGround = value; }
@@ -83,9 +91,11 @@ public class Player : MonoBehaviour
     {
         InitState();
         ChainAction();
-        gameCanvasManager.UpdateHpBar(this);
+        UpdateUi();
         stateManager.ChangeState(IdleState);
     }
+
+
 
     private void OnDisable()
     {
@@ -115,11 +125,37 @@ public class Player : MonoBehaviour
         airbornState = new PlayerAirbornState(this, stateManager);
     }
 
+    public void UpdateUi()
+    {
+        gameCanvasManager.UpdateHpBar(this);
+        gameCanvasManager.UpdateStaminaBar(this);
+    }
 
     public void InitCanvas(GameCanvasManager gcm)
     {
         gameCanvasManager = gcm;
     }
+
+    #region CharacterStatChange
+    public void IncreaseStamina(float duration)
+    {
+        if (stamina >= maxHp) return;
+        stamina += duration * Time.deltaTime;
+        gameCanvasManager.UpdateStaminaBar(this);
+    }
+
+    public void JumpStamina(float value)
+    {
+        if(stamina >= value)
+            stamina -= value;
+    }
+    public void DecreaseStamina(float duration)
+    {
+        if (stamina <= 0) return;
+        stamina -= duration * Time.deltaTime;
+        gameCanvasManager.UpdateStaminaBar(this);
+    }
+    #endregion
 
     #region InputSystem
     void ChainAction()

@@ -21,6 +21,7 @@ public class PlayerMoveState : PlayerBaseMoveState
     public override void FixedUpdateState()
     {
         base.FixedUpdateState();
+        player.IncreaseStamina(MoveStaminaDuration);
         if (player.IsRun)
             stateManager.ChangeState(player.RunState);
     }

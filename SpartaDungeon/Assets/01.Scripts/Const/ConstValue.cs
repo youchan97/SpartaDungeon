@@ -18,4 +18,9 @@ public static class ConstValue
     public const string StartSceneName = "StartScene";
     public const string LoadingSceneName = "LoadingScene";
     public const string GameSceneName = "GameScene";
+
+    public const float MoveStaminaDuration = 5f;
+    public const float RunStaminaDuration = 10f;
+    public const float IdleStaminaDuration = 7f;
+    public const float JumpStaminaDecrease = 10f;
 }

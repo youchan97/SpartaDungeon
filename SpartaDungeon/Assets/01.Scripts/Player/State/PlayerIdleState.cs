@@ -17,12 +17,13 @@ public class PlayerIdleState : PlayerState
 
     public override void UpdateState()
     {
+        player.IncreaseStamina(IdleStaminaDuration);
         if (player.IsMove)
         {
             stateManager.ChangeState(player.MoveState);
             return;
         }
-        else if (player.IsJump)
+        else if (player.IsJump && player.Stamina >= JumpStaminaDecrease)
         {
             stateManager.ChangeState(player.JumpState);
             return;

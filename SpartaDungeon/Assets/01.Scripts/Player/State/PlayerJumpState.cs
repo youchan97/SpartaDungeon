@@ -24,6 +24,7 @@ public class PlayerJumpState : PlayerState
         anim.ResetTrigger(JumpEndAnim);
         anim.SetTrigger(JumpStartAnim);
         rb.AddForce(Vector3.up * player.JumpPower, ForceMode.Impulse);
+        player.JumpStamina(JumpStaminaDecrease);
         groundCoolTime = 0f;
     }
 

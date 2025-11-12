@@ -412,6 +412,8 @@ MonoBehaviour:
   speed: 3
   runBonusSpeed: 3
   jumpPower: 4
+  stamina: 100
+  maxStamina: 100
   isIdle: 0
   isMove: 0
   isGround: 0

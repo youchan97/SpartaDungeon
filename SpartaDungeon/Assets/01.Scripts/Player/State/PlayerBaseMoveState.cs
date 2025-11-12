@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
-
+using static ConstValue;
 public abstract class PlayerBaseMoveState : PlayerState
 {
     PlayerController controller;
@@ -26,7 +26,7 @@ public abstract class PlayerBaseMoveState : PlayerState
     {
         Vector2 playerMoveVec = controller.moveVec;
         Transform cameraTransform = player.PlayerCamera.gameObject.transform;
-        if (player.IsJump)
+        if (player.IsJump && player.Stamina >= JumpStaminaDecrease)
         {
             stateManager.ChangeState(player.JumpState);
             return;

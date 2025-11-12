@@ -9,8 +9,9 @@ public class GameCanvasManager : MonoBehaviour
     UiManager uiManager;
     GameManager gameManager;
 
-    [Header("Hp관련")]
+    [Header("캐릭터 능력치")]
     [SerializeField] Slider hpBar;
+    [SerializeField] Slider staminaBar;
 
     [Header("인터렉션 소개UI")]
     [SerializeField] GameObject descriptionUi;
@@ -34,8 +35,20 @@ public class GameCanvasManager : MonoBehaviour
         {
             hpBar.fillRect.gameObject.SetActive(false);
         }
+        else if(hpBar.value > 0 && !hpBar.fillRect.gameObject.activeSelf)
+            hpBar.fillRect.gameObject.SetActive(true);
     }
 
+    public void UpdateStaminaBar(Player player)
+    {
+        staminaBar.value = player.Stamina / player.MaxStamina;
+        if (staminaBar.value <= 0)
+        {
+            staminaBar.fillRect.gameObject.SetActive(false);
+        }
+        else if (staminaBar.value > 0 && !staminaBar.fillRect.gameObject.activeSelf)
+            staminaBar.fillRect.gameObject.SetActive(true);
+    }
 
     public void ItemDescription(Item item, bool isOn = true)
     {
