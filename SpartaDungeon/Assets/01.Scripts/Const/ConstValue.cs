@@ -14,4 +14,8 @@ public static class ConstValue
     public const string JumpEndAnim = "JumpEnd";
     public const string AirBornAnim = "AirBorn";
     public const string RunAnim = "IsRun";
+
+    public const string StartSceneName = "StartScene";
+    public const string LoadingSceneName = "LoadingScene";
+    public const string GameSceneName = "GameScene";
 }
