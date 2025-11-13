@@ -41,4 +41,11 @@
 + LoadAsync를 사용해 로딩씬에서의 로딩을 구현하였다.
 + 현재 로딩이 한프레임만에 되기때문에 로딩씬을 보여주기 위해 로딩따로 로딩바따로 연출 구현을 하였다.
 
+# 사용 에셋
+
+1. UI 에셋 : VioletUI => https://assetstore.unity.com/packages/2d/gui/violet-themed-ui-235559
+2. 캐릭터 에셋 : https://assetstore.unity.com/packages/3d/characters/humanoids/creative-characters-free-animated-low-poly-3d-models-304841
+3. 맵 에셋 : https://assetstore.unity.com/packages/3d/environments/lowpoly-platformer-kit-free-modular-stylized-blocks-319018
+4. 폴더 정리 에셋 : https://assetstore.unity.com/packages/tools/utilities/rainbow-folders-2-143526
+
 
