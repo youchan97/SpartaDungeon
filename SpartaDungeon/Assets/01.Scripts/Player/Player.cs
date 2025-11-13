@@ -14,7 +14,10 @@ public class Player : MonoBehaviour
     public BuffManager buffManager;
     GameManager gameManager;
     GameCanvasManager gameCanvasManager;
+
+    [Header("카메라")]
     [SerializeField] PlayerCameraController playerCamera;
+    [SerializeField] Transform playerRoot;
 
     [Header("플레이어 능력치")]
     [SerializeField] float hp;
@@ -53,6 +56,7 @@ public class Player : MonoBehaviour
     public Rigidbody PlayerRb { get => playerRb; }
     public Animator PlayerAnim { get => playerAnim; }
     public PlayerCameraController PlayerCamera { get => playerCamera; }
+    public Transform PlayerRoot { get => playerRoot; }
     public float Hp
     { 
         get => hp;
@@ -107,6 +111,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        playerCamera.CameraRotate();
         stateManager.Update();
     }
 
@@ -117,7 +122,7 @@ public class Player : MonoBehaviour
 
     private void LateUpdate()
     {
-        PlayerLook();
+        //playerCamera.CameraRotate();
     }
     void InitState()
     {
@@ -137,6 +142,11 @@ public class Player : MonoBehaviour
     public void InitCanvas(GameCanvasManager gcm)
     {
         gameCanvasManager = gcm;
+    }
+
+    public void InitCameraController(PlayerCameraController cam)
+    {
+        playerCamera = cam;
     }
 
     #region CharacterStatChange
@@ -167,8 +177,9 @@ public class Player : MonoBehaviour
         controller.OnJump += PlayerJump;
         controller.OnRun += PlayerRun;
         controller.OnRunEnd += PlayerRunEnd;
-        controller.OnLook += PlayerLook;
+        //controller.OnLook += PlayerLook;
         controller.OnPause += PlayerPause;
+        controller.OnChangeView += PlayerChangeView;
     }
 
     void RemoveChain()
@@ -177,8 +188,9 @@ public class Player : MonoBehaviour
         controller.OnJump -= PlayerJump;
         controller.OnRun -= PlayerRun;
         controller.OnRunEnd -= PlayerRunEnd;
-        controller.OnLook -= PlayerLook;
+        //controller.OnLook -= PlayerLook;
         controller.OnPause -= PlayerPause;
+        controller.OnChangeView -= PlayerChangeView;
     }
 
     void PlayerMove()
@@ -205,8 +217,8 @@ public class Player : MonoBehaviour
 
     void PlayerLook()
     {
-        Vector2 vec = controller.lookVec;
-        playerCamera.CameraRotate(vec);
+        //Vector2 vec = controller.lookVec;
+        playerCamera.CameraRotate();
     }
 
     void PlayerPause()
@@ -219,6 +231,11 @@ public class Player : MonoBehaviour
         {
             gameCanvasManager.CloseMenu();
         }
+    }
+
+    void PlayerChangeView()
+    {
+        playerCamera.ChangeView();
     }
     #endregion
     #region Interaction Object
@@ -274,7 +291,7 @@ public class Player : MonoBehaviour
 
     void CheckItemForward()
     {
-        
+        rayObj.transform.rotation = playerCamera.isFps ? playerCamera.fpsCam.transform.rotation : playerCamera.tpsCam.transform.rotation; 
         bool isOn = Physics.SphereCast(rayObj.transform.position,rayRadius, rayObj.transform.forward,out RaycastHit hit, objRayDistance, objLayer);
         Debug.DrawRay(rayObj.transform.position, rayObj.transform.forward * objRayDistance, Color.red);
         if (isOn)

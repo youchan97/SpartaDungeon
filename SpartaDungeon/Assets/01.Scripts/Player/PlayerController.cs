@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     InputAction runAction;
     InputAction lookAction;
     InputAction pauseAction;
+    InputAction changeViewAction;
 
     public Action OnMove;
     public Action OnJump;
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public Action OnRunEnd;
     public Action OnLook;
     public Action OnPause;
+    public Action OnChangeView;
 
     public Vector2 moveVec;
 
@@ -49,9 +51,10 @@ public class PlayerController : MonoBehaviour
         jumpAction.performed += JumpPerformed;
         runAction.performed += RunPerformed;
         runAction.canceled += RunCanceled;
-        lookAction.performed += LookPerformed;
-        lookAction.canceled += LookCanceled;
+        //lookAction.performed += LookPerformed;
+        //lookAction.canceled += LookCanceled;
         pauseAction.performed += PausePerformed;
+        changeViewAction.performed += ChangeViewPerformed;
     }
     public void RemoveInput()
     {
@@ -60,9 +63,10 @@ public class PlayerController : MonoBehaviour
         jumpAction.performed -= JumpPerformed;
         runAction.performed -= RunPerformed;
         runAction.canceled -= RunCanceled;
-        lookAction.performed += LookPerformed;
-        lookAction.canceled += LookCanceled;
+        //lookAction.performed -= LookPerformed;
+        //lookAction.canceled -= LookCanceled;
         pauseAction.performed -= PausePerformed;
+        changeViewAction.performed -= ChangeViewPerformed;
     }
 
 
@@ -71,8 +75,9 @@ public class PlayerController : MonoBehaviour
         moveAction = actionController.Player.Move;
         jumpAction = actionController.Player.Jump;
         runAction = actionController.Player.Run;
-        lookAction = actionController.Player.Look;
+        //lookAction = actionController.Player.Look;
         pauseAction = actionController.Player.Pause;
+        changeViewAction = actionController.Player.ChangeView;
     }
 
     public void EnableInput()
@@ -80,7 +85,8 @@ public class PlayerController : MonoBehaviour
         moveAction.Enable();
         jumpAction.Enable();
         runAction.Enable();
-        lookAction.Enable();
+        //lookAction.Enable();
+        changeViewAction.Enable();
     }
 
     public void DisableInput()
@@ -88,7 +94,8 @@ public class PlayerController : MonoBehaviour
         moveAction.Disable();
         jumpAction.Disable();
         runAction.Disable();
-        lookAction.Disable();
+        //lookAction.Disable();
+        changeViewAction.Disable();
     }
 
     public void PauseEnable() => pauseAction.Enable();
@@ -137,5 +144,10 @@ public class PlayerController : MonoBehaviour
     void PausePerformed(InputAction.CallbackContext context)
     {
         OnPause?.Invoke();
+    }
+
+    void ChangeViewPerformed(InputAction.CallbackContext context)
+    {
+        OnChangeView?.Invoke();
     }
 }

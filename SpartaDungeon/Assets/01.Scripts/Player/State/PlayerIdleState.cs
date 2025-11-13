@@ -29,7 +29,7 @@ public class PlayerIdleState : PlayerState
             return;
         }
 
-        if (!player.IsGround)
+        if (!player.IsGround && player.IsJump != false)
             stateManager.ChangeState(player.AirbornState);
     }
 

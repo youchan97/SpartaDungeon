@@ -38,13 +38,30 @@ public abstract class PlayerBaseMoveState : PlayerState
         }
 
         if (!player.IsGround)
+        {
             stateManager.ChangeState(player.AirbornState);
+            return;
+        }
         Vector3 vec = cameraTransform.TransformDirection(new Vector3(playerMoveVec.x, 0, playerMoveVec.y));
         vec.y = 0f;
         Vector3 velocity = vec * GetSpeed();
         velocity.y = rb.velocity.y;
         rb.velocity = velocity;
+        /*Vector3 vec = cameraTransform.forward * +playerMoveVec.y + cameraTransform.right * playerMoveVec.x;
+        vec.y = 0f;
+        vec.Normalize();
 
+        Vector3 movePos = rb.position + (vec * GetSpeed() * Time.fixedDeltaTime);
+        rb.MovePosition(movePos);
+
+        if(vec.sqrMagnitude > 0.01f)
+        {
+            Quaternion rot = Quaternion.LookRotation(vec);
+            rot.x = 0f;
+            rot.z = 0f;
+
+            rb.MoveRotation(Quaternion.Slerp(rb.rotation, rot, 0.15f));
+        }*/
 
     }
 }
