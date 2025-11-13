@@ -8,4 +8,5 @@ public class ItemScriptable : ScriptableObject
     public string itemName;
     public string description;
     public ItemType type;
+    public float consumeValue;
 }

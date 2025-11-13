@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StaminaItem : Item
+public class HpItem : Item
 {
     protected override void EffectItem(Player player)
     {
-        player.PlayerStaminaUp(itemData.consumeValue);
+        player.PlayerHealHp(itemData.consumeValue);
     }
 }

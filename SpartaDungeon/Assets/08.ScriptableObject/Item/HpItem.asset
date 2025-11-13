@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4635b026128344c4993a9d23e7e3f42b, type: 3}
-  m_Name: JumpItem
+  m_Name: HpItem
   m_EditorClassIdentifier: 
-  itemName: "\uC810\uD504\uC758 \uC601\uC57D"
-  description: "\uD50C\uB808\uC774\uC5B4\uC758 \uC810\uD504\uB825\uB97C \uC77C\uC815
-    \uC2DC\uAC04 \uC99D\uAC00\uC2DC\uD0B5\uB2C8\uB2E4. "
-  type: 0
+  itemName: "\uCCB4\uB825\uC758 \uC601\uC57D"
+  description: "\uD50C\uB808\uC774\uC5B4\uC758 Hp\uB97C \uC99D\uAC00\uC2DC\uD0B5\uB2C8\uB2E4."
+  type: 1
+  consumeValue: 10
