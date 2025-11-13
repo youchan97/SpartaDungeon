@@ -4,14 +4,20 @@ using UnityEngine;
 
 public enum ItemType
 {
-    SpeedUp,
-    JumpUp
+    Buff,
+    Consume
 }
 
 public enum BuffType
 {
     Speed,
-    Jump
+    Jump,
+    Stamina
 }
 
+public enum ObstacleType
+{
+    One,
+    Dot
+}
 public class EnumData { }

@@ -10,6 +10,7 @@ public class Item : MonoBehaviour
 
     public ItemScriptable ItemData { get => itemData; }
 
+    protected virtual void EffectItem(Player player) { }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -17,8 +18,16 @@ public class Item : MonoBehaviour
         if(player != null)
         {
             Destroy(this.gameObject);
-            //player.TakeDamage(10f); //플레이어 hp UI 테스트용
-            player.buffManager.AddBuff(buffData);
+            switch(itemData.type)
+            {
+                case ItemType.Buff:
+                    player.buffManager.AddBuff(buffData);
+                    break;
+                case ItemType.Consume:
+                    EffectItem(player);
+                    break;
+
+            }
         }
     }
 }
