@@ -19,6 +19,7 @@ public class GameManager : SingletonManager<GameManager>
         if (player == null || isPause) return;
         isPause = true;
         Time.timeScale = 0f;
+        Cursor.visible = true;
         player.PausePlayer();
     }
 
@@ -27,6 +28,7 @@ public class GameManager : SingletonManager<GameManager>
         if (player == null || !isPause) return;
         isPause = false;
         Time.timeScale = 1f;
+        Cursor.visible = false;
         player.ResumePlayer();
     }
 
@@ -45,5 +47,11 @@ public class GameManager : SingletonManager<GameManager>
         isPause = false;
         Time.timeScale = 1f;
         SceneManager.LoadScene(GameSceneName);
+    }
+
+    public void GameOver()
+    {
+        PauseGame();
+        player.Controller.PauseDisable();
     }
 }

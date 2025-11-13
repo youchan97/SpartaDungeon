@@ -21,6 +21,9 @@ public class GameCanvasManager : MonoBehaviour
     [Header("메뉴")]
     public GameObject menuPopup;
 
+    [Header("게임오버")]
+    [SerializeField] GameObject gameOverPopup;
+
     private void Start()
     {
         uiManager = UiManager.Instance;
@@ -74,6 +77,11 @@ public class GameCanvasManager : MonoBehaviour
     {
         gameManager.RestartGame();
     }
+    
+    public void OnClickExitButton()
+    {
+        gameManager.ExitGame();
+    }
 
     public void OpenMenu()
     {
@@ -81,6 +89,10 @@ public class GameCanvasManager : MonoBehaviour
         menuPopup.SetActive(true);
     }
 
+    public void GameOverCanvas()
+    {
+        gameOverPopup.SetActive(true);
+    }
     public void CloseMenu()
     {
         gameManager.ResumeGame();

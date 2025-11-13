@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static ConstValue;
 
 public class Player : MonoBehaviour
 {
@@ -93,6 +94,7 @@ public class Player : MonoBehaviour
         ChainAction();
         UpdateUi();
         stateManager.ChangeState(IdleState);
+        Cursor.visible = false;
     }
 
 
@@ -100,6 +102,7 @@ public class Player : MonoBehaviour
     private void OnDisable()
     {
         RemoveChain();
+        Cursor.visible = true;
     }
 
     private void Update()
@@ -185,11 +188,13 @@ public class Player : MonoBehaviour
 
     void PlayerJump()
     {
+        if (stamina < JumpStaminaDecrease) return;
         IsJump = true;
     }
 
     void PlayerRun()
     {
+        if (stamina <= 0f) return;
         IsRun = true;
     }
 
@@ -230,6 +235,14 @@ public class Player : MonoBehaviour
     public void PlayerJumpPowerUp(float value) => jumpPower += value;
 
     public void PlayerJumpPowerDown(float value) => jumpPower -= value;
+
+    public void PlayerStaminaUp(float value) => stamina += value;
+
+    public void PlayerHealHp(float value)
+    {
+        hp += value;
+        gameCanvasManager.UpdateHpBar(this);
+    }
 
     #endregion
 
@@ -280,6 +293,11 @@ public class Player : MonoBehaviour
     {
         hp -= damage;
         gameCanvasManager.UpdateHpBar(this);
+        if(hp <= 0f)
+        {
+            gameManager.GameOver();
+            gameCanvasManager.GameOverCanvas();
+        }
     }
     #endregion
 }
